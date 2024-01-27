@@ -1,6 +1,6 @@
 var hasil = document.getElementById("hasil");
 var ac = document.getElementById("ac");
-var hapus = document.getElementById("hapus");   // Harusnya Paling Sulit
+var hapus = document.getElementById("hapus");  
 var bagi = document.getElementById("bagi");
 var n1 = document.getElementById("1");
 var n2 = document.getElementById("2");
@@ -19,24 +19,52 @@ var n0 = document.getElementById("0");
 var nKoma = document.getElementById(".");
 var nSamaDengan = document.getElementById("sama-dengan");
 
-var bersih = () => { hasil.innerHTML = "= ";}
+var angka = [];
+var countOperator = 1;
+var countKoma = 1;
+var tampungAngka = "";
+
+var bersih = () => { 
+    hasil.innerHTML = "= ";
+}
 
 var hapusD = () => {
     var teks = hasil.innerHTML;
     var tampung = "";
-    for (var i = 1; i < hasil.innerHTML.length; i++ ){
-        tampung += teks[i];
+    if (teks.length > 2) {
+        for (var i = 0; i < hasil.innerHTML.length-1; i++ ){
+            tampung += teks[i];
+        }
+        hasil.innerHTML = tampung;
+        tampung = "";   
     }
-    console.log(hasil.innerHTML);
-    console.log(teks);
-    console.log(teks[1]);
-    console.log(tampung);
-    hasil.innerHTML = tampung;
-    tampung = "";
 }
 
 var tampilan = (e) => {
-    hasil.innerHTML = hasil.innerHTML + e.target.innerHTML;
+    hasil.innerHTML += e.target.innerHTML;
+    tampungAngka += e.target.innerHTML;
+    countOperator = 1;
+}
+
+var tampilanOperator = (e) => {
+    if (countOperator = 1){
+        angka += int(tampungAngka);
+        tampungAngka = "";
+        hasil.innerHTML += " " +  e.target.innerHTML + " ";
+        countKoma = 1;
+    }
+    countOperator++;
+}
+
+var tampilanKoma = (e) => {
+    if (countKoma = 1){
+        hasil.innerHTML += e.target.innerHTML;
+    }
+    countKoma++;
+}
+
+var tampilanHasil = () => {
+    hasil.innerHTML = "= ";
 }
 
 n1.addEventListener("click", tampilan);
@@ -50,18 +78,15 @@ n8.addEventListener("click", tampilan);
 n9.addEventListener("click", tampilan);
 n0.addEventListener("click", tampilan);
 
-nKali.addEventListener("click", tampilan);
-nKurang.addEventListener("click", tampilan);
-nTambah.addEventListener("click", tampilan);
-nKoma.addEventListener("click", tampilan);
-nPersen.addEventListener("click", tampilan);
-nTambah.addEventListener("click", tampilan);
-nKoma.addEventListener("click", tampilan);
-nKoma.addEventListener("click", tampilan);
+nKali.addEventListener("click", tampilanOperator);
+nKurang.addEventListener("click", tampilanOperator);
+nTambah.addEventListener("click", tampilanOperator);
+nPersen.addEventListener("click", tampilanOperator);
 
+nKoma.addEventListener("click", tampilanKoma);
 
-// nSamaDengan.addEventListener("click", tampilan); // Beda Function
+ac.addEventListener("click", bersih); 
 
-ac.addEventListener("click", bersih); // Beda Function
+hapus.addEventListener("click", hapusD);
 
-hapus.addEventListener("click", hapusD) // Beda Function
+nSamaDengan.addEventListener("click", tampilanHasil); 
