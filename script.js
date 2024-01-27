@@ -26,13 +26,23 @@ var tampungAngka = "";
 
 var bersih = () => { 
     hasil.innerHTML = "= ";
+    countOperator = 1;
+    countKoma = 1;
+    angka = [];
+    tampungAngka = "";
 }
 
-var hapusD = () => {
+function hapusD() {
     var teks = hasil.innerHTML;
     var tampung = "";
-    if (teks.length > 2) {
-        for (var i = 0; i < hasil.innerHTML.length-1; i++ ){
+    if (teks.length > 2){
+        for (var i = 0; i < (hasil.innerHTML.length-1); i++){
+            tampung += teks[i];
+        }
+        hasil.innerHTML = tampung;
+        tampung = "";   
+    }else if(teks[teks.length] === " "){
+        for (var i = 0; i < (hasil.innerHTML.length-3); i++){
             tampung += teks[i];
         }
         hasil.innerHTML = tampung;
@@ -47,25 +57,33 @@ var tampilan = (e) => {
 }
 
 var tampilanOperator = (e) => {
-    if (countOperator = 1){
-        angka += int(tampungAngka);
+    countKoma = 1;
+    if (countOperator == 1){
+        // angka += int(tampungAngka);
         tampungAngka = "";
         hasil.innerHTML += " " +  e.target.innerHTML + " ";
-        countKoma = 1;
+    }else{
+        hapusD();
+        hasil.innerHTML += " " +  e.target.innerHTML + " ";
     }
-    countOperator++;
+    countOperator += 1;
 }
 
 var tampilanKoma = (e) => {
-    if (countKoma = 1){
+    if (tampungAngka != "" && countKoma == 1){
         hasil.innerHTML += e.target.innerHTML;
+        countKoma += 1;
     }
-    countKoma++;
+    //@ts-ignore
 }
 
-var tampilanHasil = () => {
+var tampilanHasil = () => {    
     hasil.innerHTML = "= ";
-}
+    countOperator = 1;
+    countKoma = 1;
+    angka = [];
+    tampungAngka = "";
+}   
 
 n1.addEventListener("click", tampilan);
 n2.addEventListener("click", tampilan);
@@ -82,11 +100,15 @@ nKali.addEventListener("click", tampilanOperator);
 nKurang.addEventListener("click", tampilanOperator);
 nTambah.addEventListener("click", tampilanOperator);
 nPersen.addEventListener("click", tampilanOperator);
+bagi.addEventListener("click", tampilanOperator);
 
 nKoma.addEventListener("click", tampilanKoma);
 
 ac.addEventListener("click", bersih); 
 
-hapus.addEventListener("click", hapusD);
+hapus.addEventListener("click", hapusD());
 
 nSamaDengan.addEventListener("click", tampilanHasil); 
+
+
+// Math.round biar di batasi koma nya
