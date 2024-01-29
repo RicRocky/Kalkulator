@@ -23,6 +23,11 @@ var angka = [];
 var countOperator = 1;
 var countKoma = 1;
 var tampungAngka = "";
+var history = "";
+
+function Hitung(){
+
+}
 
 function hapusD(){
     var teks = hasil.innerHTML;
@@ -38,26 +43,27 @@ function hapusD(){
         }
         hasil.innerHTML = tampung;
     }
-    return tampung;
 }
 
 var tampilan = (e) => {
+    history += e.target.innerHTML;
     hasil.innerHTML += e.target.innerHTML;
     tampungAngka += e.target.innerHTML;
     countOperator = 1;
 }
 
 var tampilanOperator = (e) => {
-    countKoma = 1;
-    if (countOperator == 1){
-        // angka += int(tampungAngka);
-        tampungAngka = "";
-        hasil.innerHTML += " " +  e.target.innerHTML + " ";
-    }else{
-        hasil.innerHTML = hapusD();
-        hasil.innerHTML += " " +  e.target.innerHTML + " ";
+    if (history != ""){
+        countKoma = 1;
+        if (countOperator == 1 ){
+            tampungAngka = "";
+            hasil.innerHTML += " " +  e.target.innerHTML + " ";
+        }else{
+            hapusD();
+            hasil.innerHTML += " " +  e.target.innerHTML + " ";
+        }
+        countOperator += 1;
     }
-    countOperator += 1;
 }
 
 var tampilanKoma = (e) => {
@@ -90,6 +96,7 @@ bagi.addEventListener("click", tampilanOperator);
 hapus.addEventListener("click", hapusD);
 
 ac.addEventListener("click", () => {
+    history = "";
     hasil.innerHTML = "= ";
     countOperator = 1;
     countKoma = 1;
