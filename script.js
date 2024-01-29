@@ -1,4 +1,5 @@
 var hasil = document.getElementById("hasil");
+var hasilPerhitungan = document.getElementById("hasilPerhitungan")
 var ac = document.getElementById("ac");
 var hapus = document.getElementById("hapus");  
 var bagi = document.getElementById("bagi");
@@ -20,13 +21,17 @@ var nKoma = document.getElementById(".");
 var nSamaDengan = document.getElementById("sama-dengan");
 
 var angka = [];
+var operator = [];
 var countOperator = 1;
 var countKoma = 1;
 var tampungAngka = "";
 var history = "";
+var nilaiPerhitungan = 0;
 
 function Hitung(){
+    
 
+    return nilaiPerhitungan;
 }
 
 function hapusD(){
@@ -50,12 +55,15 @@ var tampilan = (e) => {
     hasil.innerHTML += e.target.innerHTML;
     tampungAngka += e.target.innerHTML;
     countOperator = 1;
+    nilaiPerhitungan = Hitung();
+    hasilPerhitungan.innerHTML = nilaiPerhitungan;
 }
 
 var tampilanOperator = (e) => {
     if (history != ""){
         countKoma = 1;
         if (countOperator == 1 ){
+            angka += tampungAngka;
             tampungAngka = "";
             hasil.innerHTML += " " +  e.target.innerHTML + " ";
         }else{
@@ -63,6 +71,9 @@ var tampilanOperator = (e) => {
             hasil.innerHTML += " " +  e.target.innerHTML + " ";
         }
         countOperator += 1;
+        if (countOperator = 2){
+            operator += e.target.innerHTML;
+        }
     }
 }
 
@@ -70,6 +81,7 @@ var tampilanKoma = (e) => {
     if (tampungAngka != "" && countKoma == 1){
         hasil.innerHTML += e.target.innerHTML;
         countKoma += 1;
+        countOperator += 1;
     }
     //@ts-ignore
 }
