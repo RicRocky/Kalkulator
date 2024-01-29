@@ -74,6 +74,14 @@ var tampilanKoma = (e) => {
     //@ts-ignore
 }
 
+var samaDengan = () => {
+    hasil.innerHTML = "= ";
+    countOperator = 1;
+    countKoma = 1;
+    angka = [];
+    tampungAngka = "";
+}
+
 n1.addEventListener("click", tampilan);
 n2.addEventListener("click", tampilan);
 n3.addEventListener("click", tampilan);
@@ -95,16 +103,15 @@ bagi.addEventListener("click", tampilanOperator);
 
 hapus.addEventListener("click", hapusD);
 
-ac.addEventListener("click", () => {
-    history = "";
-    hasil.innerHTML = "= ";
-    countOperator = 1;
-    countKoma = 1;
-    angka = [];
-    tampungAngka = "";
+nSamaDengan.addEventListener("click", samaDengan); 
+nSamaDengan.addEventListener("keypress", (e) => {
+    if (e.key === "Enter"){
+        samaDengan();
+    }
 }); 
 
-nSamaDengan.addEventListener("click", () => {
+ac.addEventListener("click", () => {
+    history = "";
     hasil.innerHTML = "= ";
     countOperator = 1;
     countKoma = 1;
