@@ -1,0 +1,26 @@
+body{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 30px;
+    display: flex;
+}
+
+.kalkulator{
+    display: flex;
+    width:300px;
+    height: auto;
+}
+
+.angka{
+    padding-left: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-right: 25px;
+}
+
+.titik{
+    padding: 25px 27px 25px 27px;
+}
+
+.sama-dengan {
+    padding: 25px 23.6px 25px 23.6px;
+}

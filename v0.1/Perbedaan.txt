@@ -1,0 +1,2 @@
+Perbedaan : 
+1. Untuk menampilkan hasil masih menggunakan tag <div> dengan class hasil
