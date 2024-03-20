@@ -3,12 +3,15 @@ body {
     height: 100%;
     background: linear-gradient(180deg, #9273E9 0%, rgba(235, 228, 255, 0.00) 0%, rgba(183, 158, 254, 0.00) 0.01%, #B79EFF 0.02%, #8767E1 48.96%, #482F8F 71.35%, #29175E 100%);
     background-repeat: no-repeat;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center ;
 }
 
 .container-kalkulator{
     width: 22.858rem;
     height: 46.5rem;
-    flex-shrink: 0;
     background: rgba(255, 255, 255, 0.21);
     border: 1.5px solid rgba(255, 255, 255, 0.25);
     border-radius: 0.563rem;

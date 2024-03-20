@@ -1,66 +1,69 @@
-var hasil = document.getElementById("hasil");
-var hasilPerhitungan = document.getElementById("hasilPerhitungan")
-var ac = document.getElementById("ac");
-var hapus = document.getElementById("hapus");  
-var bagi = document.getElementById("bagi");
-var n1 = document.getElementById("1");
-var n2 = document.getElementById("2");
-var n3 = document.getElementById("3");
-var nKali = document.getElementById("*");
-var n4 = document.getElementById("4");
-var n5 = document.getElementById("5");
-var n6 = document.getElementById("6");
-var nKurang = document.getElementById("-");
-var n7= document.getElementById("7");
-var n8 = document.getElementById("8");
-var n9 = document.getElementById("9");
-var nTambah = document.getElementById("+");
-var nPersen = document.getElementById("persen");
-var n0 = document.getElementById("0");
-var nKoma = document.getElementById(".");
-var nSamaDengan = document.getElementById("sama-dengan");
+let hasil = document.getElementById("hasil");
+let hasilPerhitungan = document.getElementById("hasilPerhitungan")
+let ac = document.getElementById("ac");
+let hapus = document.getElementById("hapus");  
+let bagi = document.getElementById("bagi");
+let n1 = document.getElementById("1");
+let n2 = document.getElementById("2");
+let n3 = document.getElementById("3");
+let nKali = document.getElementById("*");
+let n4 = document.getElementById("4");
+let n5 = document.getElementById("5");
+let n6 = document.getElementById("6");
+let nKurang = document.getElementById("-");
+let n7= document.getElementById("7");
+let n8 = document.getElementById("8");
+let n9 = document.getElementById("9");
+let nTambah = document.getElementById("+");
+let nPersen = document.getElementById("persen");
+let n0 = document.getElementById("0");
+let nKoma = document.getElementById(".");
+let nSamaDengan = document.getElementById("sama-dengan");
 
-var angka = [];
-var operator = [];
-var countOperator = 1;
-var countKoma = 1;
-var tampungAngka = "";
-var history = "";
-var nilaiPerhitungan = 0;
+let angka = [];
+let operator = [];
+let countOperator = 1;
+let countKoma = 1;
+let tampungAngka = "";
+let history = "";
+let nilaiPerhitungan = 0;
 
 function Hitung(){
-    var a = parseInt(angka[1]);
-    var b;
-
-    return nilaiPerhitungan;
+    console.log(angka);
+    console.log(operator);
+    console.log(countOperator);
+    console.log(countKoma);
+    console.log(tampungAngka);
+    console.log(history);
+    console.log(nilaiPerhitungan);
 }
 
 function hapusD(){
-    var teks = hasil.innerHTML;
-    var tampung = "";
+    let teks = hasil.innerHTML;
+    let tampung = "";
     if(teks.length > 2 && teks[teks.length-1] == " "){
-        for (var i = 0; i < (hasil.innerHTML.length-3); i++){
+        for (let i = 0; i < (hasil.innerHTML.length-3); i++){
             tampung += teks[i];
         }
         hasil.innerHTML = tampung;
     }else{
-        for (var i = 0; i < (hasil.innerHTML.length-1); i++){
+        for (let i = 0; i < (hasil.innerHTML.length-1); i++){
             tampung += teks[i];
         }
         hasil.innerHTML = tampung;
     }
 }
 
-var tampilan = (e) => {
+const tampilan = (e) => {
     history += e.target.innerHTML;
     hasil.innerHTML += e.target.innerHTML;
     tampungAngka += e.target.innerHTML;
     countOperator = 1;
-    nilaiPerhitungan = Hitung();
-    hasilPerhitungan.innerHTML = nilaiPerhitungan;
+    // nilaiPerhitungan = Hitung();
+    // hasilPerhitungan.innerHTML = nilaiPerhitungan;
 }
 
-var tampilanOperator = (e) => {
+let tampilanOperator = (e) => {
     if (history != ""){
         countKoma = 1;
         if (countOperator == 1 ){
@@ -78,7 +81,7 @@ var tampilanOperator = (e) => {
     }
 }
 
-var tampilanKoma = (e) => {
+let tampilanKoma = (e) => {
     if (tampungAngka != "" && countKoma == 1){
         hasil.innerHTML += e.target.innerHTML;
         countKoma += 1;
