@@ -22,23 +22,17 @@ let nKoma = document.getElementById(".");
 let nSamaDengan = document.getElementById("sama-dengan");
 //#endregion
 //#region Variabel
-// Menampung angka dalam bentuk int dan operator dalam bentuk string
 let angkaOperator = [];
-// Menghitung apakah pengguna sudah boleh menekan operator (dibolehkan jika sudah ada 1 angka dan tidak di akhiri dengan titik)
 let countOperator = 0;
-// Menghitung apakah pengguna sudah boleh menekan titik (dibolehkan jika sudah ada 1 angka)
-let countKoma = 1;
-// Menampung angka / operator untuk di tampilkan pada hasil
+let countKoma = 0;
 let tampungAngka = "";
-// Start Menghitung //
-// End Menghitung //
 //#endregion
+
 const Hitung = () => {
 
 }
 
 const hapusD = () => {
-    // Untuk menghapus operator berserta " "
     if(angkaOperator.length > 2 && angkaOperator[angkaOperator.length-1] == " "){
         angkaOperator.pop();
         angkaOperator.pop();
@@ -62,26 +56,29 @@ const MenampilkanDiHasil = () => {
 }
 
 const tampilan = (e) => {
-    angkaOperator.push(e.target.innerHTML);
-    MenampilkanDiHasil();
-    countOperator = 1;
+    if (countKoma == 2 ){
+        angkaOperator.push(e.target.innerHTML);
+        MenampilkanDiHasil();
+        countOperator = 1;
+    }else{
+        angkaOperator.push(e.target.innerHTML);
+        MenampilkanDiHasil();
+        countOperator = 1;
+        countKoma = 1;
+    }
     // Ketika sudah bisa throw dan try catch
     //nilaiPerhitungan = Hitung();
     // hasilPerhitungan.innerHTML = nilaiPerhitungan;
 }
-// Method untuk menampilkan operator 
+
 const tampilanOperator = (e) => {
-    // Jika pengguna belum pernah mengklik angka maka operator belum boleh ada
-    // Kalau pengguna baru pertama kali menekan operator 
     if (countOperator == 1 ){
         angkaOperator.push(" " + e.target.innerHTML + " ");
         MenampilkanDiHasil();
         countOperator = 2;
-        countKoma = 1;
+        countKoma = 0;
     }else if(countOperator > 1){
-        // Kalau countOperator > 1 maka akan menghapus operator sebelumnya berserta " "
         hapusD();
-        // Dan akan menggantinya dengan operator yang baru di klik
         angkaOperator.push(" " + e.target.innerHTML + " ");
         MenampilkanDiHasil();
         countKoma = 1;
@@ -89,7 +86,7 @@ const tampilanOperator = (e) => {
 }
 
 let tampilanKoma = (e) => {
-    if (countKoma == 1 && angkaOperator.length > 0){
+    if (countKoma == 1){
         angkaOperator.push(e.target.innerHTML);
         MenampilkanDiHasil();
         countKoma = 2;
