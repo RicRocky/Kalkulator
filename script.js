@@ -1,3 +1,4 @@
+//#region Akses id html
 let hasil = document.getElementById("hasil");
 let hasilPerhitungan = document.getElementById("hasilPerhitungan")
 let ac = document.getElementById("ac");
@@ -19,77 +20,85 @@ let nPersen = document.getElementById("persen");
 let n0 = document.getElementById("0");
 let nKoma = document.getElementById(".");
 let nSamaDengan = document.getElementById("sama-dengan");
-
-let angka = [];
-let operator = [];
-let countOperator = 1;
+//#endregion
+//#region Variabel
+// Menampung angka dalam bentuk int dan operator dalam bentuk string
+let angkaOperator = [];
+// Menghitung apakah pengguna sudah boleh menekan operator (dibolehkan jika sudah ada 1 angka dan tidak di akhiri dengan titik)
+let countOperator = 0;
+// Menghitung apakah pengguna sudah boleh menekan titik (dibolehkan jika sudah ada 1 angka)
 let countKoma = 1;
+// Menampung angka / operator untuk di tampilkan pada hasil
 let tampungAngka = "";
-let history = "";
-let nilaiPerhitungan = 0;
+// Start Menghitung //
+// End Menghitung //
+//#endregion
+const Hitung = () => {
 
-function Hitung(){
-    console.log(angka);
-    console.log(operator);
-    console.log(countOperator);
-    console.log(countKoma);
-    console.log(tampungAngka);
-    console.log(history);
-    console.log(nilaiPerhitungan);
 }
 
-function hapusD(){
-    let teks = hasil.innerHTML;
-    let tampung = "";
-    if(teks.length > 2 && teks[teks.length-1] == " "){
-        for (let i = 0; i < (hasil.innerHTML.length-3); i++){
-            tampung += teks[i];
-        }
-        hasil.innerHTML = tampung;
+const hapusD = () => {
+    // Untuk menghapus operator berserta " "
+    if(angkaOperator.length > 2 && angkaOperator[angkaOperator.length-1] == " "){
+        angkaOperator.pop();
+        angkaOperator.pop();
+        MenampilkanDiHasil();
+    }else if(angkaOperator[angkaOperator.length - 1] == "."){
+        angkaOperator.pop();
+        countKoma = 1;
+        MenampilkanDiHasil();
     }else{
-        for (let i = 0; i < (hasil.innerHTML.length-1); i++){
-            tampung += teks[i];
-        }
-        hasil.innerHTML = tampung;
+        angkaOperator.pop();
+        MenampilkanDiHasil();
     }
 }
 
-const tampilan = (e) => {
-    history += e.target.innerHTML;
-    hasil.innerHTML += e.target.innerHTML;
-    tampungAngka += e.target.innerHTML;
-    countOperator = 1;
-    // nilaiPerhitungan = Hitung();
-    // hasilPerhitungan.innerHTML = nilaiPerhitungan;
+const MenampilkanDiHasil = () => {
+    tampungAngka = "";
+    for(let i = 0; i < angkaOperator.length; i++){
+        tampungAngka += angkaOperator[i]
+    }
+    hasil.innerHTML = "= " + tampungAngka;
 }
 
-let tampilanOperator = (e) => {
-    if (history != ""){
+const tampilan = (e) => {
+    angkaOperator.push(e.target.innerHTML);
+    MenampilkanDiHasil();
+    countOperator = 1;
+    // Ketika sudah bisa throw dan try catch
+    //nilaiPerhitungan = Hitung();
+    // hasilPerhitungan.innerHTML = nilaiPerhitungan;
+}
+// Method untuk menampilkan operator 
+const tampilanOperator = (e) => {
+    // Jika pengguna belum pernah mengklik angka maka operator belum boleh ada
+    // Kalau pengguna baru pertama kali menekan operator 
+    if (countOperator == 1 ){
+        angkaOperator.push(" " + e.target.innerHTML + " ");
+        MenampilkanDiHasil();
+        countOperator = 2;
         countKoma = 1;
-        if (countOperator == 1 ){
-            angka += tampungAngka;
-            tampungAngka = "";
-            hasil.innerHTML += " " +  e.target.innerHTML + " ";
-        }else{
-            hapusD();
-            hasil.innerHTML += " " +  e.target.innerHTML + " ";
-        }
-        countOperator += 1;
-        if (countOperator = 2){
-            operator += e.target.innerHTML;
-        }
+    }else if(countOperator > 1){
+        // Kalau countOperator > 1 maka akan menghapus operator sebelumnya berserta " "
+        hapusD();
+        // Dan akan menggantinya dengan operator yang baru di klik
+        angkaOperator.push(" " + e.target.innerHTML + " ");
+        MenampilkanDiHasil();
+        countKoma = 1;
     }
 }
 
 let tampilanKoma = (e) => {
-    if (tampungAngka != "" && countKoma == 1){
-        hasil.innerHTML += e.target.innerHTML;
-        countKoma += 1;
-        countOperator += 1;
+    if (countKoma == 1 && angkaOperator.length > 0){
+        angkaOperator.push(e.target.innerHTML);
+        MenampilkanDiHasil();
+        countKoma = 2;
+        countOperator = 0;
     }
-    //@ts-ignore
 }
 
+//#region Event Listener
+//#region Tampilan Angka
 n1.addEventListener("click", tampilan);
 n2.addEventListener("click", tampilan);
 n3.addEventListener("click", tampilan);
@@ -100,7 +109,8 @@ n7.addEventListener("click", tampilan);
 n8.addEventListener("click", tampilan);
 n9.addEventListener("click", tampilan);
 n0.addEventListener("click", tampilan);
-
+//#endregion
+//#region Tampilan Diluar Angka
 nKoma.addEventListener("click", tampilanKoma);
 
 nKali.addEventListener("click", tampilanOperator);
@@ -108,25 +118,30 @@ nKurang.addEventListener("click", tampilanOperator);
 nTambah.addEventListener("click", tampilanOperator);
 nPersen.addEventListener("click", tampilanOperator);
 bagi.addEventListener("click", tampilanOperator);
-
+//#endregion
+//#region Tampilan Hapus
 hapus.addEventListener("click", hapusD);
 
 ac.addEventListener("click", () => {
-    history = "";
+    angkaOperator = [];
     hasil.innerHTML = "= ";
-    countOperator = 1;
+    countOperator = 0;
     countKoma = 1;
-    angka = [];
     tampungAngka = "";
 }); 
-
+//#endregion
 nSamaDengan.addEventListener("click", () => {
-    hasil.innerHTML = "= ";
-    countOperator = 1;
-    countKoma = 1;
-    angka = [];
+    console.log(angkaOperator);
+    console.log(angkaOperator.join());
+    console.log(angkaOperator.join().split(" "));
+    console.log(angkaOperator.map((data,i) => Number.isInteger(data[i]) == true? Number.parseInt(data[i]): false));
+    console.log(angkaOperator.map((data,i) => console.log(i)));
+    console.log(angkaOperator.map((data,i) => console.log(data)));
+    Hitung();
+    countOperator = 0;
     tampungAngka = "";
+    countKoma = 1;
+    hasil.innerHTML = "= ";
 }); 
-
-
+//#endregion
 // Math.round biar di batasi koma nya
