@@ -22,6 +22,8 @@ let nKoma = document.getElementById(".");
 let nSamaDengan = document.getElementById("sama-dengan");
 //#endregion
 //#region Variabel
+let angka = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."];
+let operator = ["+", "-", "/", "*", "%"];
 let angkaOperator = [];
 let countOperator = 0;
 let countKoma = 0;
@@ -128,12 +130,6 @@ ac.addEventListener("click", () => {
 }); 
 //#endregion
 nSamaDengan.addEventListener("click", () => {
-    console.log(angkaOperator);
-    console.log(angkaOperator.join());
-    console.log(angkaOperator.join().split(" "));
-    console.log(angkaOperator.map((data,i) => Number.isInteger(data[i]) == true? Number.parseInt(data[i]): false));
-    console.log(angkaOperator.map((data,i) => console.log(i)));
-    console.log(angkaOperator.map((data,i) => console.log(data)));
     Hitung();
     countOperator = 0;
     tampungAngka = "";
